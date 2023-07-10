@@ -5,8 +5,11 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, orderBy, query } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import ChatRow from "../ChatRow/ChatRow";
+import ModelSelection from "../ModelSelection/ModelSelection";
+import { useState } from "react";
 
 const SideBar = () => {
+  const [isLogOut, setIsLogOut] = useState(false);
   const { data: session } = useSession();
 
   const [chats, loading, error] = useCollection(
@@ -22,19 +25,40 @@ const SideBar = () => {
       <div className="flex-1">
         <div>
           <NewChat />
-          <div>{/*Mode selection*/}</div>
-          {chats?.docs.map((chat) => (
-            <ChatRow key={chat.id} id={chat.id} />
-          ))}
+          <div className="hidden sm:inline">
+            <ModelSelection />
+          </div>
+          <div className="flex flex-col space-y-2 my-2">
+            {loading && (
+              <div className="animate-pulse text-center text-white">
+                <p>Loading chats...</p>
+              </div>
+            )}
+            {chats?.docs.map((chat) => (
+              <ChatRow key={chat.id} id={chat.id} />
+            ))}
+          </div>
         </div>
       </div>
       {session && (
-        <img
+        <div
           onClick={() => signOut()}
-          src={session.user?.image!}
-          alt="Profile"
-          className="h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-50"
-        />
+          onMouseEnter={() => setIsLogOut(true)}
+          onMouseLeave={() => setIsLogOut(false)}
+          className="cursor-pointer mb-2 mx-auto text-sm"
+        >
+          {isLogOut ? (
+            <p className="h-8 w-20 rounded-lg bg-red-600 text-center animate-pulse pt-1">
+              Log Out
+            </p>
+          ) : (
+            <img
+              src={session.user?.image!}
+              alt="Profile"
+              className="h-12 w-12 rounded-full"
+            />
+          )}
+        </div>
       )}
     </div>
   );

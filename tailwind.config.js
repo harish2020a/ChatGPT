@@ -11,6 +11,7 @@ module.exports = {
         dark: "#343541",
         darkBar: "#202123",
         gptGreen: "#11A37F",
+        gptMessage: "#434654",
       },
     },
   },

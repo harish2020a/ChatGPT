@@ -9,6 +9,7 @@ const query = async (prompt: string, model: string) => {
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
+      max_tokens: 1024,
     })
     .then((res) => res.data.choices[0].text)
     .catch(

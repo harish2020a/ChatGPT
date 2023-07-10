@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     user: {
       _id: "ChatGPT",
       name: "ChatGPT",
-      avatar: "",
+      avatar: "/assets/chatIcon.png",
     },
   };
 
