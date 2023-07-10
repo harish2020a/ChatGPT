@@ -5,6 +5,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { authOptions } from "./utils/authOptions";
 import Login from "./components/Login/Login";
+import ClientProvider from "./components/ClientProvider/ClientProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,6 +27,7 @@ export default async function RootLayout({
               <div className="bg-darkBar max-w-xs h-screen overflow-y-auto md:min-w-[20rem]">
                 <SideBar />
               </div>
+              <ClientProvider />
               <div className="bg-dark flex-1">{children}</div>
             </div>
           ) : (
