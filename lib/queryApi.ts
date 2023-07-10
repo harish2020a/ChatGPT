@@ -3,8 +3,8 @@ import openai from "./chatGPT";
 const query = async (prompt: string, model: string) => {
   const res = await openai
     .createCompletion({
-      model: "text-davinci-003",
-      prompt: "Hello",
+      model,
+      prompt,
       temperature: 0.9,
       top_p: 1,
       frequency_penalty: 0,
